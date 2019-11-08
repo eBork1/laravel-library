@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CardholdersTable extends Migration
+class CreateUserRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CardholdersTable extends Migration
      */
     public function up()
     {
-
-        Schema::create('cardholders', function(Blueprint $table){
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-
+            $table->unsignedBigInteger('user_id');
+            $table->boolean('is_admin')->nullable();
+            
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
             
         });
     }
@@ -29,7 +32,6 @@ class CardholdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cardholders');
-        
+        Schema::dropIfExists('user_roles');
     }
 }

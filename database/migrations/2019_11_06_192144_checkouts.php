@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AdminsTable extends Migration
+class Checkouts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,20 @@ class AdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        
+        Schema::create('checkouts', function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-
-            $table->foreign('user_id')
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('checked_by');
+            
+            $table->foreign('book_id')
+                ->references('id')
+                ->on('books');
+            
+            $table->foreign('checked_by')
                 ->references('id')
                 ->on('users');
+
         });
     }
 
@@ -30,6 +37,6 @@ class AdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('checkouts');
     }
 }

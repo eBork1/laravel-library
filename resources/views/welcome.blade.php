@@ -83,6 +83,7 @@
                 <div class="title m-b-md">
                     Laravel Library
                 </div>
+                <p class="display-5">we have 5 books</p>
             </div>
         </div>
     </body>
